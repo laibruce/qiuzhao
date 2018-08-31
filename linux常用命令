@@ -1,0 +1,33 @@
+2. 问： 如果一个linux新手想要知道当前系统支持的所有命令的列表，他需要怎么做
+答： 使用命令compgen ­-c，可以打印出所有支持的命令列表。
+[root@localhost ~]$ compgen -c
+
+4. 问： 你的系统目前有许多正在运行的任务，在不重启机器的条件下，有什么方法可以把所有正在运行的进程移除呢？
+答： 使用linux命令 ’disown -r ’可以将所有正在运行的进程移除。
+
+5. 问： bash shell 中的hash 命令有什么作用？
+
+答：linux命令’hash’管理着一个内置的哈希表，记录了已执行过的命令的完整路径, 用该命令可以打印出你所使用过的命令以及执行的次数。
+[root@localhost ~]# hash
+hits command
+2  /bin/ls
+2 /bin/su
+
+6. 问：哪一个bash内置命令能够进行数学运算。
+答： bash shell 的内置命令let 可以进行整型数的数学运算。
+#! /bin/bash
+…
+…
+let c=a+b
+…
+…
+ 
+7. 问：怎样一页一页地查看一个大文件的内容呢？
+答： 通过管道将命令”cat file_name.txt” 和 ’more’ 连接在一起可以实现这个需要.
+[root@localhost ~]# cat file_name.txt | more
+
+9 .  问： 怎样查看一个linux命令的概要与用法？
+假设你在/bin目录中偶然看到一个你从没见过的的命令，怎样才能知道它的作用和用法呢？
+答 ： 使用命令whatis 可以先出显示出这个命令的用法简要，比如，你可以使用whatis zcat 去查看‘zcat’的介绍以及使用简要。
+[root@localhost ~]# whatis zcat
+zcat [gzip] (1) – compress or expand files
