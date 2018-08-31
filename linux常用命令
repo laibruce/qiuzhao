@@ -1,3 +1,9 @@
+
+命令
+ls,grep,find,ln,netstat,ifconfig,df -hl,|,history,hash,ps -aux,top,rm,mv,touch,cat,head,tail,more,less,rmdir,cp,wc,alias la='ls -a',
+
+awk
+
 2. 问： 如果一个linux新手想要知道当前系统支持的所有命令的列表，他需要怎么做
 答： 使用命令compgen ­-c，可以打印出所有支持的命令列表。
 [root@localhost ~]$ compgen -c
@@ -312,9 +318,9 @@ rm rm -r rmdir
 “？”可替代单个字符。·“*”可替代任意多个字符。·方括号“[charset]”可替代
 charset 集中的任何单个字符，如[a-z]，[abABC]
 15. 用什么命令对一个文件的内容进行统计？(行号、单词数、字节数)
-wc 命令- c 统计字节数。- l 统计行数。- w 统计字数。
+wc 命令- c 统计字节数。- l 统计行数。- w 统计字数。wc + 参数 + 文件名
 16. Grep 命令有什么用？ 如何忽略大小写？ 如何查找不含该串的行?
-是一种强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来。
+是一种强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的所在行的内容都打印出来。
 grep [stringSTRING] filename
 grep [^string] filename
 17. Linux 中进程有哪几种状态？在ps 显示出来的信息中，分别用什么符号表示的？
