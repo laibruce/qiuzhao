@@ -13,7 +13,7 @@ int binary_search(container &array, int value)
 			begin = mid + 1;
 		mid = begin + (end - begin) / 2;  //mid是一个迭代器，不能直接转化为下标，必须通过下面的方法转化
 	}
-	res = distance(array.begin(), mid);
+	res = distance(array.begin(), mid);//得到下标值
 	//或者 res = mid - array.begin(); res = int(mid - array.begin());
 	return res;
 }
