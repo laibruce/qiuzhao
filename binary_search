@@ -1,0 +1,18 @@
+template <typename container>
+int binary_search(container &array, int value)
+{
+	int res;
+	auto begin = array.begin();
+	auto end = array.end();
+	auto mid = array.begin() + (end - begin) / 2;
+	while (mid != end && *mid != value)
+	{
+		if (value < *mid)
+			end = mid;
+		else
+			begin = mid + 1;
+		mid = begin + (end - begin) / 2;
+	}
+	res = distance(array.begin(), mid);
+	return res;
+}
