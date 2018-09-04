@@ -17,3 +17,6 @@ int binary_search(container &array, int value)
 	//或者 res = mid - array.begin(); res = int(mid - array.begin());
 	return res;
 }
+
+//二分查找的代码及其变种请仔细参考
+//https://www.cnblogs.com/luoxn28/p/5767571.html
