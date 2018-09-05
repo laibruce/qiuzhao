@@ -338,6 +338,95 @@ void quick_sort(int data[], int length, int start, int end)
 		quick_sort(data, length, index + 1, end);
 }
 
+//基数排序,计数排序（桶思想）
+
+//计数排序（适用于排序数列是连续数字的情况）
+void count_sort(int data[], int len)
+{
+	int min = data[0];
+	int max = data[0];
+	//遍历排序数组得到最大值和最小值
+	for (int i = 0; i < len; i++)
+	{
+		if (min > data[i])
+			min = data[i];
+		if (max < data[i])
+			max = data[i];
+	}
+//	cout << max << endl << min << endl;
+
+	int  *help = new int [max - min + 1] ();  //一定要注意这边的初始化，不显示使用（）初始化为0的话，可能默认初始化为负数，导致了后面程序的错误。
+	//统计频率
+	for (int j = 0; j < len; j++)
+	{
+//		cout << help[0] << endl;
+//		cout << help[1] << endl;
+		help[data[j] - min] = help[data[j] - min]+1;
+//		cout << help[data[j] - min] << endl;
+	}
+//	cout << help[0] << endl << help[1] << endl;
+
+	int index = 0;
+	for (int k = 0; k < max - min + 1; k++)
+	{
+		while (help[k]--)
+		{
+			data[index++] = k + min;
+		}
+	}
+	for (int l = 0; l < len; l++)
+	{
+		cout << data[l] << endl;
+	}
+	delete[] help;
+}
+
+//基数排序
+int maxbit(int data[], int n) 
+{
+    int d = 1; //保存最大的位数
+    int p = 10;
+    for(int i = 0; i < n; ++i)
+    {
+        while(data[i] >= p)
+        {
+            p *= 10;
+            ++d;
+        }
+    }
+    return d;
+}
+void radixsort(int data[], int n) //基数排序
+{
+    int d = maxbit(data, n);
+    int *tmp = new int [n]();
+    int count[10]; //计数器
+    int i, j, k;
+    int radix = 1;
+    for(i = 1; i <= d; i++) //进行d次排序
+    {
+        for(j = 0; j < 10; j++)
+            count[j] = 0; //每次分配前清空计数器
+        for(j = 0; j < n; j++)
+        {
+            k = (data[j] / radix) % 10; //统计每个桶中的记录数
+            count[k]++;
+        }
+        for(j = 1; j < 10; j++)
+            count[j] = count[j - 1] + count[j]; //将tmp中的位置依次分配给每个桶
+        for(j = n - 1; j >= 0; j--) //将所有桶中记录依次收集到tmp中
+        {
+            k = (data[j] / radix) % 10;
+            tmp[count[k] - 1] = data[j];
+            count[k]--;
+        }
+        for(j = 0; j < n; j++) //将临时数组的内容复制到data中
+            data[j] = tmp[j];
+        radix = radix * 10;
+	delete[] tmp;
+    }
+}
+
 int main()
 {
 	int data[6] = { 6, 5, 4, 3, 2, 1 };
@@ -349,3 +438,22 @@ int main()
 	system("pause");
 	return 0;
 }
+
+
+每一次排序之后都能确定至少一个元素位置的排序方法包括：
+
+1.选择排序：每次将最大的数放到最后。所以最大的数排一次序后位置就确定了。
+
+2.冒泡排序：同选择排序。每一次排序最大的值位置确定。
+
+3.快排：每一次排序pivot的位置确定。
+
+4.堆排序：每一次排序时，都是将堆顶的元素和最后一个节点互换，然后调整堆，再将堆大小减1。所以每一次排序堆顶元素确定。
+
+不能至少确定一个元素的位置的方法包括：
+1.插入排序：不到最后一步求的都是相对位置。
+2.shell排序：对简单插入排序的改进。不到最后一步，是无法确定每个元素位置的。
+
+3.归并排序：局部有序，并不能确定任一元素在全局的位置。
+
+4.基数排序，计数排序：利用桶排序的思路，不是基于比较的排序，也无法在一次排序中确定某个元素的位置。因为每一次排序都是整体处理。
