@@ -1,20 +1,29 @@
 1. extern, extern "C"
 2. const,
 3. static:https://www.cnblogs.com/songdanzju/p/7422380.html
-所有未加static前缀的全局变量和函数都具有全局可见性，其它的源文件也能访问。此例中，a是全局变量，msg是函数，并且都没有加static前缀，
-因此对于另外的源文件main.c是可见的。如果加了static，就会对其它源文件隐藏。例如在a和msg的定义前加上static，main.c就看不到它们了。
-利用这一特性可以在不同的文件中定义同名函数和同名变量，而不必担心命名冲突。static可以用作函数和变量的前缀，对于函数来讲，static的作用仅限于隐藏.
-4. volatile,
-5. new...delete...,
-6. malloc...free..
-7. strlen()和sizeof()的区别：https://www.cnblogs.com/carekee/articles/1630789.html
-1）类型不同：前者是函数，后者是运算符；
-2）参数不同，strlen（）的参数必须是字符型指针（char*）。当数组名作为参数传入时，实际上数组就退化成指针了。
-   而sizeof(...)是运算符，在头文件中typedef为unsigned int，其值在编译时即计算好了，参数可以是数组、指针、类型、对象、函数等。
-3）功能不同：前者返回字符串的长度。该字符串可能是自己定义的，也可能是内存中随机的，该函数实际完成的功能是从代表该字符串的第一个地址开始遍历，
+   所有未加static前缀的全局变量和函数都具有全局可见性，其它的源文件也能访问。此例中，a是全局变量，msg是函数，并且都没有加static前缀，
+   因此对于另外的源文件main.c是可见的。如果加了static，就会对其它源文件隐藏。例如在a和msg的定义前加上static，main.c就看不到它们了。
+   利用这一特性可以在不同的文件中定义同名函数和同名变量，而不必担心命名冲突。static可以用作函数和变量的前缀，对于函数来讲，static的作用仅限于隐藏.
+4. volatile  https://www.cnblogs.com/yc_sunniwell/archive/2010/07/14/1777432.html
+   几个关键字：编译器的优化，CPU寄存器，内存变量，多线程。
+5. new...delete..., malloc...free..  https://blog.csdn.net/chance_wang/article/details/1609081
+相同点：
+   1）它们都可用于申请动态内存和释放内存。
+   2）由于内部数据类型的“对象”没有构造与析构的过程，对它们而言malloc/free和new/delete是等价的。
+不同点：（主要对于非内部数据类型（类对象）而言）
+   1) 类型不同：malloc与free是C++/C语言的标准库函数，new/delete是C++的运算符。
+   2）对于非内部数据类型的对象而言，光用maloc/free无法满足动态对象的要求。对象在创建的同时要自动执行构造函数，对象在消亡之前要自动执行析构函数。
+      由于malloc/free是库函数而不是运算符，不在编译器控制权限之内，不能够把执行构造函数和析构函数的任务强加于malloc/free。
+      因此C++语言需要一个能完成动态内存分配和初始化工作的运算符new，以及一个能完成清理与释放内存工作的运算符delete。注意new/delete不是库函数。
+      可以简单地理解为new = malloc + 构造函数，delete = free + 析构函数。
+6. strlen()和sizeof()的区别：https://www.cnblogs.com/carekee/articles/1630789.html
+   1）类型不同：前者是函数，后者是运算符；
+   2）参数不同，strlen（）的参数必须是字符型指针（char*）。当数组名作为参数传入时，实际上数组就退化成指针了。
+      而sizeof(...)是运算符，在头文件中typedef为unsigned int，其值在编译时即计算好了，参数可以是数组、指针、类型、对象、函数等。
+   3）功能不同：前者返回字符串的长度。该字符串可能是自己定义的，也可能是内存中随机的，该函数实际完成的功能是从代表该字符串的第一个地址开始遍历，
             直到遇到结束符NULL。返回的长度大小不包括NULL。
             后者获得保证能容纳实现所建立的最大对象的字节大小。
-4）举例：
+   4）举例：
     eg1、char arr[10] = "What?";
               int len_one = strlen(arr);
               int len_two = sizeof(arr); 
