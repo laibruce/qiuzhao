@@ -7,7 +7,7 @@
 4. volatile,
 5. new...delete...,
 6. malloc...free..
-7. strlen()和sizeof()的区别：
+7. strlen()和sizeof()的区别：https://www.cnblogs.com/carekee/articles/1630789.html
 1）类型不同：前者是函数，后者是运算符；
 2）参数不同，strlen（）的参数必须是字符型指针（char*）。当数组名作为参数传入时，实际上数组就退化成指针了。
    而sizeof(...)是运算符，在头文件中typedef为unsigned int，其值在编译时即计算好了，参数可以是数组、指针、类型、对象、函数等。
