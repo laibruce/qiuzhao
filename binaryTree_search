@@ -1,0 +1,183 @@
+前中后参考以下文章：
+https://www.cnblogs.com/SHERO-Vae/p/5800363.html
+https://www.cnblogs.com/SHERO-Vae/p/5800363.htmlhttps://www.cnblogs.com/SHERO-Vae/p/5800363.html
+https://www.cnblogs.com/SunZhR/p/6594168.html
+
+#include <iostream>
+#include <stack>
+#include <queue>
+
+//构造方法一，不判断节点与根节点的大小关系
+typedef struct BiTNode{
+    char data;
+    int lvisited,rvisited;//左、右孩子是否访问过，1表示已访问（此项只在后序非递归2算法中需要）
+    struct BiTNode *lchild,*rchild;
+}BiTNode,*BiTree;
+
+void InitBiTree(BiTree &T)//构造空二叉树
+{
+    T=NULL;
+}
+void CreateBiTree(BiTree &T)//生成二叉树
+{
+    char ch;
+    cin>>ch;
+    if(ch=='0')//0代表空
+        T=NULL;
+    else
+    {
+        T=(BiTree)malloc(sizeof(BiTNode));//生成根结点
+        if(!T)
+        {
+            cout<<"生成结点错误！"<<endl;
+            return;
+        }
+        T->data=ch;
+        T->lvisited=0;
+        T->rvisited=0;
+        CreateBiTree(T->lchild);
+        CreateBiTree(T->rchild);
+    }
+}
+
+//构造方法二，判断节点与根节点的大小关系
+struct Node{
+  int value;
+  Node *left;
+  Node *right;
+  Node(int value):value(value),left(NULL),right(NULL){}
+};
+//构建二叉树，把值比根节点小的放左边，比根节点大的放右边
+void insertNode(Node *node, int value)
+{
+  if (value <= node->value)
+  {
+    if (!node->left)
+      node->left = new Node(value);
+    else
+      insertNode(node->left,value);
+  }
+  else
+  {
+    if(!node->right)
+      node->right = new Node(value);
+    else
+      insertNode(node->right,value);
+  }
+}
+
+//前序遍历递归实现
+void preOrder(Node *node)
+{
+  if(node)
+  {
+    cout << node->value;
+    preOrder(node->left);
+    preOrder(node->right);
+  }
+}
+//前序遍历非递归实现
+void preOrder1(Node *node)
+{
+  if (node == NULL)
+    return;
+  stack<Node *> nstack;
+  nstack.push(node);
+  while (!nstack.empty())
+  {
+    Node *tmp = nstack.top();
+    cout << tmp->value;
+    nstack.pop();
+    if(tmp->right)
+      nstack.push(tmp->right);
+    if(tmp->left)
+      nstack.push(tmp->left);
+   }
+ }
+    
+ //中序遍历递归实现
+ void inOrder(Node *node)
+ {
+    if(node)
+    {
+      inOrder(node->left);
+      cout << node->value;
+      inOrder(node->right);
+    }
+}
+
+//中序遍历非递归实现
+void inOrder1(Node *node)
+{
+  stack<Node *> nstack;
+  Node *tmp = node;
+  while(tmp || !nstack.empty())
+  {
+    if(tmp)
+    {
+      nstack.push(tmp);
+      tmp = tmp->left;
+    }
+    else
+    {
+      tmp = nstack.top();
+      cout << tmp->value;
+      nstack.pop();
+      tmp = tmp->right;
+    }
+  }
+}
+
+//后续遍历递归实现
+void posOrder(Node *node)
+{
+  if(node)
+  {
+    posOrder(node->left);
+    posOrder(node->right);
+    cout << node->value;
+  }
+}
+
+//后续遍历非递归实现
+void posOrder1(Node *node)
+{
+  if(node == NULL)
+    return;
+  stack<Node *> nstack1, nstack2;
+  nstack1.push(node);
+  while (!nstack1.empty())
+  {
+    Node *tmp = nstack1.top();
+    nstack1.pop();
+    nstack2.push(tmp);
+    if(tmp->left)
+      nstack1.push(tmp->left);
+    if(tmp->right)
+      nstack1.push(tmp->right);
+  }
+  while(!nstack2.empty())
+  {
+    cout << nstack2.top()->value;
+    nstack2.pop();
+  }
+}
+
+//层序遍历（广度优先遍历）
+void broadOrder(Node *node)
+{
+  if(!node)
+    return;
+  queue<Node *> qnodes;
+  qnodes.push(node);
+  while(!qnodes.empty())
+  {
+    Node * tmp = qnodes.front();
+    cout << tmp->value;
+    qnodes.pop();
+    if(tmp->left)
+      qnodes.push(tmp->left);
+    if(tmp->right)
+      qnodes.push(tmp->right);
+  }
+}
