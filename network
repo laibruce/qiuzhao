@@ -14,4 +14,4 @@ TCP与UDP区别总结：
 
 二. TCP的三次握手和四次挥手详解 
 https://blog.csdn.net/qzcsu/article/details/72861891
-https://blog.csdn.net/ZWE7616175/article/details/80432486
+注意请求连接时客户端和服务器的SYN,ACK的变化；注意请求断开连接时，客户端和服务器各自的FIN,ACK的变化。
