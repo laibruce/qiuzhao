@@ -1,13 +1,13 @@
-extern, extern "C"
-const,
-static:https://www.cnblogs.com/songdanzju/p/7422380.html
+1. extern, extern "C"
+2. const,
+3. static:https://www.cnblogs.com/songdanzju/p/7422380.html
 所有未加static前缀的全局变量和函数都具有全局可见性，其它的源文件也能访问。此例中，a是全局变量，msg是函数，并且都没有加static前缀，
 因此对于另外的源文件main.c是可见的。如果加了static，就会对其它源文件隐藏。例如在a和msg的定义前加上static，main.c就看不到它们了。
 利用这一特性可以在不同的文件中定义同名函数和同名变量，而不必担心命名冲突。static可以用作函数和变量的前缀，对于函数来讲，static的作用仅限于隐藏.
-volatile,
-new...delete...,
-malloc...free..
-strlen()和sizeof()的区别：
+4. volatile,
+5. new...delete...,
+6. malloc...free..
+7. strlen()和sizeof()的区别：
 1）类型不同：前者是函数，后者是运算符；
 2）参数不同，strlen（）的参数必须是字符型指针（char*）。当数组名作为参数传入时，实际上数组就退化成指针了。
    而sizeof(...)是运算符，在头文件中typedef为unsigned int，其值在编译时即计算好了，参数可以是数组、指针、类型、对象、函数等。
