@@ -1,6 +1,7 @@
 1. extern, extern "C"
 2. const,
-3. static:https://www.cnblogs.com/songdanzju/p/7422380.html
+3. static:  https://www.cnblogs.com/songdanzju/p/7422380.html
+   修饰成员变量与成员函数： https://blog.csdn.net/u014453898/article/details/64124269/
    所有未加static前缀的全局变量和函数都具有全局可见性，其它的源文件也能访问。此例中，a是全局变量，msg是函数，并且都没有加static前缀，
    因此对于另外的源文件main.c是可见的。如果加了static，就会对其它源文件隐藏。例如在a和msg的定义前加上static，main.c就看不到它们了。
    利用这一特性可以在不同的文件中定义同名函数和同名变量，而不必担心命名冲突。static可以用作函数和变量的前缀，对于函数来讲，static的作用仅限于隐藏.
