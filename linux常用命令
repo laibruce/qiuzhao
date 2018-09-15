@@ -1,4 +1,6 @@
 
+vi/vim的基本使用：https://www.aliyun.com/jiaocheng/145554.html
+
 命令
 ls,grep,find,ln,netstat,ifconfig,df -hl,|,history,hash,ps -aux,top,rm,mv,touch,cat,head,tail,more,less,rmdir,cp,wc,alias la='ls -a',last
 
